@@ -1,37 +1,23 @@
-// // Enemies our player must avoid
-// var Enemy = function() {
-//     // Variables applied to each of our instances go here,
-//     // we've provided one for you to get started
-
-//     // The image/sprite for our enemies, this uses
-//     // a helper we've provided to easily load images
-//     this.sprite = 'images/enemy-bug.png';
-// };
-
-// // Update the enemy's position, required method for game
-// // Parameter: dt, a time delta between ticks
-// Enemy.prototype.update = function(dt) {
-//     // You should multiply any movement by the dt parameter
-//     // which will ensure the game runs at the same speed for
-//     // all computers.
-// };
-
 class Enemy{
-    constructor(){
+    constructor(speed, y){
+        this.x = 0;
+        this.y = y;
+        this.speed = speed;
         this.sprite = 'images/enemy-bug.png';
     }
-   // // Update the enemy's position, required method for game
-// // Parameter: dt, a time delta between ticks 
     update(dt){
-        // You should multiply any movement by the dt parameter
-//     // which will ensure the game runs at the same speed for
-//     // all computers.
+        this.x += this.speed * dt;
+        if(this.x >= 500){
+            this.x = 0;
+        };
     }
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
 }
-// let bugOne = new Enemy;
+let bugOne = new Enemy(200, 50);
+let bugTwo = new Enemy(100, 140);
+let bugThree = new Enemy(75, 230);
 // This class requires an update(), render() and
 
 class PlayerOne{
@@ -42,19 +28,21 @@ class PlayerOne{
     }
     update(){
         
-    //     //check collisions
-    //     // let bug = enemyArray;
-    //     // let player = this;
-    //     //  if ((bug.x < player.x + player.width) && (bug.x + bug.wdith > player.x) && ( bug.y < player.y + player.height) && (bug.height + bug.y > player.y)){
-    //     //     this.x = 200;
-    //     //     this.y = 400;
-    //     //  }
+        //check collisions
+        // let player = this;
+        //  if ((baddie.x < player.x + player.width) && (baddie.x + baddie.wdith > player.x) 
+        //     && ( baddie.y < player.y + player.height) && (baddie.height + baddie.y > player.y)){
+        //     this.x = 200;
+        //     this.y = 400;
+        //  };
 
 
-    //     //****check for win*****
-    //     // if(this.y>=400){
-    //     //     resetPlayerOne();
-    //     // }
+        if(this.y <= -50){
+            this.x = 200;
+            this.y = 400;
+            alert("You win good job!");
+        }
+
         
     }
     render(){
@@ -76,14 +64,12 @@ class PlayerOne{
             } 
             }
         };        
-}
+} //end of PlayerOne class
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+let allEnemies=[bugOne, bugTwo, bugThree];
 
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
