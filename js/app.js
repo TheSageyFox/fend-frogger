@@ -1,54 +1,51 @@
+//Enemy class for bug creation 
 class Enemy{
     constructor(speed, y){
-        this.x = 0;
-        this.y = y;
-        this.speed = speed;
+        this.x = 0; 
+        this.y = y; 
+        this.speed = speed; //rate at which the bug travels across the screen
         this.sprite = 'images/enemy-bug.png';
     }
     update(dt){
         this.x += this.speed * dt;
-        if(this.x >= 500){
+        if(this.x >= 500){ //resets the enemies' location after clearing the screen.
             this.x = 0;
         };
     }
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    }
+    }   
 }
-let bugOne = new Enemy(200, 50);
-let bugTwo = new Enemy(100, 140);
-let bugThree = new Enemy(75, 230);
-// This class requires an update(), render() and
 
+
+//checks for collision of the bugs and player using the pythagorean theorem to judge distance between the objects. 
+//Information and the basis of this code was found at: 
+// https://www.youtube.com/watch?v=XYzA_kPWyJ8
+function checkCollisions(x1,y1,x2,y2){
+    let pt = Math.sqrt(Math.pow((x2-x1),2)+ Math.pow((y2-y1),2));
+    if (pt<= 50){
+        player.x=200;
+        player.y=400;
+    };
+}
+//Player class - Set for Player One, as there is a planed implementation for another player later.
 class PlayerOne{
     constructor(){
         this.x = 200; 
         this.y = 400;
         this.sprite = 'images/char-boy.png';
     }
-    update(){
-        
-        //check collisions
-        // let player = this;
-        //  if ((baddie.x < player.x + player.width) && (baddie.x + baddie.wdith > player.x) 
-        //     && ( baddie.y < player.y + player.height) && (baddie.height + baddie.y > player.y)){
-        //     this.x = 200;
-        //     this.y = 400;
-        //  };
-
-
+    update(){ //checks for winning conditions, TODO: change alert into modal.
         if(this.y <= -50){
+            alert("You win! Congratulations!!");
             this.x = 200;
             this.y = 400;
-            alert("You win good job!");
-        }
-
-        
+        }        
     }
     render(){
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
-    handleInput(pressedKey){
+    handleInput(pressedKey){ //allows for the player to move their piece using the arrow keys
         if((this.x >= 0 && this.x <= 400) && (this.y <= 400)){
             if((pressedKey === 'left')&&(this.x > 99)){
                 this.x -=100;
@@ -65,9 +62,10 @@ class PlayerOne{
             }
         };        
 } //end of PlayerOne class
-
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
+let bugOne = new Enemy(200, 50);
+let bugTwo = new Enemy(100, 140);
+let bugThree = new Enemy(75, 230);
+let player = new PlayerOne;
 let allEnemies=[bugOne, bugTwo, bugThree];
 
 document.addEventListener('keyup', function(e) {
@@ -80,4 +78,4 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-let player = new PlayerOne;
+

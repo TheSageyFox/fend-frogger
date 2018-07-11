@@ -79,7 +79,9 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions(player.x, player.y, bugOne.x, bugOne.y);
+        checkCollisions(player.x, player.y, bugTwo.x, bugTwo.y);
+        checkCollisions(player.x, player.y, bugThree.x, bugThree.y);
     }
 
     /* This is called by the update function and loops through all of the
