@@ -62,13 +62,13 @@ class PlayerOne{
     }
     handleInput(pressedKey){
         if((this.x >= 0 && this.x <= 400) && (this.y <= 400)){
-            if((pressedKey === 'left')&&(this.x > 99){
+            if((pressedKey === 'left')&&(this.x > 99)){
                 this.x -=100;
-            }else if(pressedKey === 'right'){
+            }else if((pressedKey === 'right')&&(this.x < 399)){
                 this.x +=100;
             }else if(pressedKey === 'up'){
                 this.y -= 90;
-            }else if(pressedKey === 'down'){
+            }else if((pressedKey === 'down')&&(this.y < 399) ){
                 this.y += 90;
             }else{
                 this.x+=0;
